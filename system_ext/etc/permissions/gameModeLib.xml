@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2021 FCNT LIMITED -->
+<permissions>
+    <library name="gameModeLib"
+            file="/system_ext/framework/gameModeLib.jar" />
+</permissions>

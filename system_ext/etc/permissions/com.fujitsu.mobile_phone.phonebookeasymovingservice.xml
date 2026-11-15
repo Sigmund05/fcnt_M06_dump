@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/** 
+ * (C) 2021 FCNT LIMITED
+ */ 
+/*
+==================================================================================
+ * HISTORY
+ *
+ * Tag                      Date       Author           Description
+ * ======================== ========== ===============  ==========================
+ * SHIBA-3_Q-OSV            2019/11/21 NSCo Kasahara    AndroidQ対応
+==================================================================================
+ */
+-->
+
+<permissions>
+<!-- FCNT LIMITED:2019-11-21 AndroidQ対応 ADD-S -->
+    <privapp-permissions package="com.fujitsu.mobile_phone.phonebookeasymovingservice">
+        <permission name="android.permission.WRITE_MEDIA_STORAGE"/>
+    </privapp-permissions>
+<!-- FCNT LIMITED:2019-11-21 AndroidQ対応 ADD-E -->
+</permissions>

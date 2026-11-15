@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2021, 2022 FCNT LIMITED -->
+
+<!--
+This XML file declares which signature|privileged permissions should be granted to privileged
+applications that come with the platform
+-->
+<!-- COPYRIGHT(C) FCNT 2019-2021 -->
+<!--
+===============================================================================================
+ * HISTORY
+ *
+ * Tag                      Date       Author           Description
+ * ======================== ========== ================ =======================================
+ * FEATURE_FJ_PHONE_00293   2023/11/16 FCNT K.Sanada    プライバシーモード(電話着信シークレット機能)
+===============================================================================================
+-->
+<permissions>
+
+<!-- FCNT:2021-06-23_PrivacyMode-ADD-S -->
+    <privapp-permissions package="com.fcnt.mobile_phone.privacymodesettings">
+        <permission name="android.permission.CHANGE_COMPONENT_ENABLED_STATE"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+        <permission name="android.permission.MANAGE_USERS"/>
+<!-- FCNT:2021-11-17_PrivacyMode-ADD-new-for-S -->
+        <permission name="android.permission.SET_WALLPAPER_COMPONENT"/>
+        <permission name="android.permission.BIND_WALLPAPER"/>
+    </privapp-permissions>
+<!-- FCNT:2021-06-23_PrivacyMode-ADD-E -->
+
+<!-- FCNT:2018-01-04 [RunCommandアプリ] O-OSV 特権パーミッションのホワイトリスト登録 ADD-S -->
+    <!-- runcommand -->
+    <privapp-permissions package="com.fujitsu.mobile_phone.runcommand">
+        <permission name="android.permission.DUMP"/>
+        <permission name="android.permission.READ_LOGS"/>
+        <permission name="android.permission.REBOOT"/>
+        <permission name="android.permission.SET_ALWAYS_FINISH"/>
+        <permission name="android.permission.SET_ANIMATION_SCALE"/>
+        <permission name="android.permission.SET_DEBUG_APP"/>
+        <permission name="android.permission.SET_PROCESS_LIMIT"/>
+        <permission name="android.permission.WRITE_MEDIA_STORAGE"/>
+    </privapp-permissions>
+<!-- FCNT:2018-01-04 [RunCommandアプリ] O-OSV 特権パーミッションのホワイトリスト登録 ADD-E -->
+
+<!-- FCNT:2022-08-22 AppPinning ADD-S -->
+    <privapp-permissions package="com.fcnt.mobile_phone.apppinning">
+        <permission name="android.permission.START_ACTIVITIES_FROM_BACKGROUND"/>
+        <permission name="android.permission.REAL_GET_TASKS"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"/>
+        <permission name="android.permission.STATUS_BAR"/>
+    </privapp-permissions>
+<!-- FCNT:2022-08-22 AppPinning ADD-E -->
+
+<!-- FJ_CAMERA_CUSTOM 01983 add start -->
+    <privapp-permissions package="com.fujitsu.mobile_phone.camera">
+        <permission name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+        <permission name="android.permission.WRITE_MEDIA_STORAGE"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.SYSTEM_CAMERA"/>
+        <!-- FJ_CAMERA_CUSTOM adapt to android13 add start -->
+        <!-- FJ_CAMERA_CUSTOM adapt to android13 fixed permission, cannot change mod start -->
+        <permission name="android.permission.POST_NOTIFICATIONS" fixed="true"/>
+        <!-- FJ_CAMERA_CUSTOM adapt to android13 fixed permission, cannot change mod end -->
+        <!-- FJ_CAMERA_CUSTOM adapt to android13 add end -->
+    </privapp-permissions>
+<!-- FJ_CAMERA_CUSTOM 01983 add end -->
+
+    <privapp-permissions package="com.fujitsu.mobilephone.settings">
+        <permission name="android.permission.WRITE_SECURE_SETTINGS" />
+        <permission name="android.permission.STATUS_BAR"/>
+    </privapp-permissions>
+
+<!-- FCNT:2019 CollectDeviceLog ADD-S -->
+    <privapp-permissions package="com.fcnt.mobile_phone.collectdevicelog">
+        <permission name="android.permission.DUMP"/>
+        <permission name="android.permission.PACKAGE_USAGE_STATS"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+    </privapp-permissions>
+<!-- FCNT:2019 CollectDeviceLog ADD-E -->
+
+<!-- FCNT:2022 BatteryMonitor ADD-S -->
+    <privapp-permissions package="com.fcnt.mobile_phone.batterymonitor">
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.MODIFY_DAY_NIGHT_MODE" />
+        <permission name="android.permission.CONTROL_DISPLAY_COLOR_TRANSFORMS" />
+<!-- FCNT:2022-11-01_SWIMMY-SYSTEM-1249 ADD-S -->
+        <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+<!-- FCNT:2022-11-01_SWIMMY-SYSTEM-1249 ADD-E -->
+<!-- FCNT:2024-1-12_FEATURE_02865-Qnovo対応_ADD-S -->
+        <permission name="android.permission.SCHEDULE_EXACT_ALARM"/>
+<!-- FCNT:2024-1-12_FEATURE_02865-Qnovo対応_ADD-E -->
+    </privapp-permissions>
+<!-- FCNT:2022 BatteryMonitor ADD-E -->
+
+    <!-- FCNT:2021-11-30 [TS_SIT MoniMoni] S-OSV 特権パーミッションのホワイトリスト登録 ADD-S -->
+    <privapp-permissions package="com.ftml.monimoni3">
+        <permission name="android.permission.READ_LOGS" />
+        <permission name="android.permission.WRITE_MEDIA_STORAGE" />
+
+        <permission name="android.permission.QUERY_USERS" />
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+        <permission name="android.permission.SCHEDULE_EXACT_ALARM" />
+        <permission name="android.permission.USE_EXACT_ALARM" />
+    </privapp-permissions>
+    <!-- FCNT:2021-11-30 [TS_SIT MoniMoni] S-OSV 特権パーミッションのホワイトリスト登録 ADD-E -->
+
+    <privapp-permissions package="com.fujitsu.mobile_phone.slideinlauncher">
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.MANAGE_USERS"/>
+    </privapp-permissions>
+
+    <!-- FCNT:2020-07-28 ZEUS FastMemo ADD-S -->
+    <privapp-permissions package="com.fcnt.mobile_phone.fastmemo">
+        <permission name="android.permission.MANAGE_USERS"/>
+        <!-- FCNT:2020-08-21 ZEUS-SYSTEM-360 ADD-S -->
+        <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+        <!-- FCNT:2020-08-21 ZEUS-SYSTEM-360 ADD-E -->
+        <!-- FCNT:2021-12-31 ATAMI-OSVS-PARTS-96 ADD-S -->
+        <permission name="android.permission.START_ACTIVITIES_FROM_BACKGROUND" />
+        <permission name="android.permission.STATUS_BAR" />
+        <!-- FCNT:2021-12-31 ATAMI-OSVS-PARTS-96 ADD-S -->
+    </privapp-permissions>
+    <!-- FCNT:2020-07-28 ZEUS FastMemo ADD-E -->
+	
+<!-- FCNT LIMITED:2020-1-8 Contacts ADD-S -->
+    <privapp-permissions package="com.fujitsu.mobile_phone.easycontacts">
+        <permission name="android.permission.GET_ACCOUNTS_PRIVILEGED"/>
+        <permission name="android.permission.MODIFY_PHONE_STATE"/>
+        <permission name="android.permission.CALL_PRIVILEGED"/>
+    </privapp-permissions>
+
+    <privapp-permissions package="com.fujitsu.mobile_phone.easydialer">
+        <permission name="android.permission.GET_ACCOUNTS_PRIVILEGED"/>
+        <permission name="android.permission.MODIFY_PHONE_STATE"/>
+        <permission name="android.permission.ALLOW_ANY_CODEC_FOR_PLAYBACK"/>
+        <permission name="android.permission.CONTROL_INCALL_EXPERIENCE"/>
+        <permission name="com.android.voicemail.permission.WRITE_VOICEMAIL"/>
+        <permission name="com.android.voicemail.permission.READ_VOICEMAIL"/>
+        <permission name="android.permission.STOP_APP_SWITCHES"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.CAPTURE_AUDIO_OUTPUT"/>
+        <permission name="android.permission.CONNECTIVITY_INTERNAL"/>
+        <permission name="android.permission.READ_DREAM_STATE"/>
+        <permission name="android.permission.WRITE_DREAM_STATE"/>
+        <permission name="android.permission.CALL_PRIVILEGED"/>
+        <permission name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"/>
+    </privapp-permissions>
+<!-- FCNT LIMITED:2020-1-8 Contacts ADD-E -->
+
+    <privapp-permissions package="com.motorola.ccc.devicemanagement">
+        <permission name="android.permission.ACCESS_CHECKIN_PROPERTIES"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.CHANGE_COMPONENT_ENABLED_STATE"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.GET_ACCOUNTS_PRIVILEGED"/>
+        <permission name="android.permission.PACKAGE_USAGE_STATS"/>
+        <permission name="android.permission.READ_LOGS" />
+        <permission name="android.permission.WRITE_SECURE_SETTINGS" />
+    </privapp-permissions>
+
+    <privapp-permissions package="com.fcnt.mobile_phone.appdoublelock">
+        <permission name="android.permission.MANAGE_USERS" />
+<!-- FCNT:SWIMMY-OSVT-SYSTEM-482: 2023-02-06 ADD-S -->
+        <permission name="android.permission.REAL_GET_TASKS"/>
+        <permission name="android.permission.START_TASKS_FROM_RECENTS"/>
+<!-- FCNT:SWIMMY-OSVT-SYSTEM-482: 2023-02-06 ADD-E -->
+    </privapp-permissions>
+
+<!-- FCNT:2022-08-22 Auto PrivacyMode On ADD-S -->
+    <privapp-permissions package="com.fcnt.mobile_phone.privacymodeservice">
+        <permission name="android.permission.LOCAL_MAC_ADDRESS"/>
+        <permission name="android.permission.SCHEDULE_EXACT_ALARM"/>
+        <permission name="android.permission.BLUETOOTH_CONNECT"/>
+    </privapp-permissions>
+<!-- FCNT:2022-08-22 Auto PrivacyMode On ADD-E -->
+
+<!-- FCNT:2024-03-05 02939-メモリクリーナー ADD-S -->
+    <privapp-permissions package="com.fujitsu.mobile_phone.memoryclean">
+        <permission name="android.permission.STATUS_BAR"/>
+    </privapp-permissions>
+<!-- FCNT:2024-03-05 02939-メモリクリーナー ADD-E -->
+
+<!-- FCNT:2024-04-28_NAGOYA-DCM-SYSTEM-771 ADD-S -->
+    <privapp-permissions package="com.fujitsu.mobile_phone.screenmemo">
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    </privapp-permissions>
+<!-- FCNT:2024-04-28_NAGOYA-DCM-SYSTEM-771 ADD-E -->
+
+<!-- FCNT:2017-11-22 [FJ_APP-00100-StartupWizard] O-OSV 特権パーミッションのホワイトリスト登録 ADD-S -->
+<!-- はじめに設定 -->
+    <privapp-permissions package="com.fujitsu.mobile_phone.StartupWizard">
+        <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+    </privapp-permissions>
+<!-- FCNT:2017-11-22 [FJ_APP-00100-StartupWizard] O-OSV 特権パーミッションのホワイトリスト登録 ADD-E -->
+<!-- FCNT LIMITED:FEATURE_FJ_PHONE_00293 ADD-S -->
+    <privapp-permissions package="com.fcnt.mobile_phone.phoneappprivacynumberssetting">
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+    </privapp-permissions>
+<!-- FCNT LIMITED:FEATURE_FJ_PHONE_00293 ADD-E -->
+</permissions>
