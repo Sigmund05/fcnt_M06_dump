@@ -1,0 +1,291 @@
+
+# Copyright (c) 2019-2021, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#
+
+import /vendor/etc/init/hw/init.qti.kernel.rc
+
+on early-init
+    write /proc/sys/kernel/printk_devkmsg ratelimited
+    export MEMTAG_OPTIONS off
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -r -d /vendor/lib/modules zram
+
+on late-init
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules moto_mm moto_swap
+
+on init
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    chown system system /sys/devices/platform/soc/1d84000.ufshc/auto_hibern8
+    chmod 0660 /sys/devices/platform/soc/1d84000.ufshc/auto_hibern8
+    start logd
+
+# add hardware version
+    setprop ro.boot.hardware.revision "PVT"
+
+on early-fs
+    start vold
+
+on fs
+    start hwservicemanager
+    mount_all --early
+    chown root system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+    restorecon_recursive /mnt/vendor/persist
+    mkdir /mnt/vendor/persist/data 0700 system system
+
+    mkdir /mnt/vendor/persist_oem 0771 root system
+    wait /dev/block/bootdevice/by-name/persist_oem
+    mount ext4 /dev/block/bootdevice/by-name/persist_oem /mnt/vendor/persist_oem noatime nosuid nodev barrier=1,discard
+    restorecon_recursive /mnt/vendor/persist_oem
+
+    chown root system /mnt/vendor/persist_oem
+    chmod 0771 /mnt/vendor/persist_oem
+
+on fs && property:ro.boot.product.vendor.sku=taro
+    mkdir /mnt/vendor/spunvm 0660 system system
+    wait /dev/block/bootdevice/by-name/spunvm
+    mount vfat /dev/block/bootdevice/by-name/spunvm /mnt/vendor/spunvm rw noatime shortname=lower,uid=1000,gid=1000,dmask=007,fmask=007,context=u:object_r:vendor_spunvm_file:s0
+
+on post-fs
+    # set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
+    mkdir /mnt/vendor/persist/flag 0700 system system
+    # start hq-fsg
+    start hq-checkfuse
+
+on late-fs
+    wait_for_prop hwservicemanager.ready true
+    #exec_start wait_for_keymaster
+    mount_all --late
+
+on post-fs-data
+    mkdir /vendor/data/tombstones 0771 system system
+    # Enable WLAN cold boot calibration
+    write /sys/kernel/cnss/fs_ready 1
+    mkdir /data/vendor/qc_hdcp2/ 0755 root root
+    chown system system /sys/bus/platform/drivers/HardwareInfo/HardwareInfo/gsensor
+    chown system system /sys/bus/platform/drivers/HardwareInfo/HardwareInfo/msensor
+    chown system system /sys/bus/platform/drivers/HardwareInfo/HardwareInfo/alsps
+    chown system system /sys/bus/platform/drivers/HardwareInfo/HardwareInfo/gyro
+    chown system system /sys/bus/platform/drivers/HardwareInfo/HardwareInfo/fingerprint
+
+on early-boot
+    start vendor.sensors
+    verity_update_state
+
+on boot
+    write /dev/cpuset/audio-app/cpus 4-7
+    # Add a cpuset for the camera daemon
+    # We want all cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/cpus 0-7
+    write /dev/cpuset/camera-daemon/mems 0
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
+    chmod 0660 /dev/cpuset/camera-daemon/tasks
+    chown system /sys/devices/platform/soc/990000.i2c/i2c-0/0-0038/trusted_touch_enable
+    chmod 0660 /sys/devices/platform/soc/990000.i2c/i2c-0/0-0038/trusted_touch_enable
+    chown system /sys/devices/platform/soc/990000.spi/spi_master/spi0/spi0.0/trusted_touch_enable
+    chmod 0660 /sys/devices/platform/soc/990000.spi/spi_master/spi0/spi0.0/trusted_touch_enable
+    chown system /sys/devices/system/cpu/hyp_core_ctl/enable
+    chown system /sys/devices/system/cpu/hyp_core_ctl/hcc_min_freq
+    chown system system /sys/devices/platform/soc/a8c000.i2c/i2c-3/3-0038/fts_test
+
+    #USB controller configuration
+    setprop vendor.usb.controller a600000.dwc3
+    #add for PPG sensor
+    chmod 0666 /dev/ledpulse
+    chown system system /dev/ledpulse
+    #add haptics calibration write
+    chown system system /sys/class/qcom-haptics/lra_calibration
+    #finger
+    chmod 0777 /data/vendor_de/0/fpdata
+    chown root root /data/vendor_de/0/fpdata 
+    #display
+    mkdir /vendor/etc/displayconfig 0644 system system
+    chmod 0644 /vendor/etc/displayconfig
+    chown system system /vendor/etc/displayconfig
+    mkdir /mnt/vendor/persist/qcom-battery 0771 root system
+    #85% stop chg and cycle save
+    chown root system /mnt/vendor/persist/qcom-battery/charge_full_capacity
+    chmod 0755 /mnt/vendor/persist/qcom-battery/charge_full_capacity
+    wait /sys/class/oem-battery/cycle_count
+    chown system system /sys/class/oem-battery/full_charge_setting
+    chown system system /sys/class/oem-battery/cycle_count
+    chown system system /sys/class/oem-battery/cycle_clear
+    chown system system /sys/class/oem-battery/age
+    chown system system /sys/class/oem-battery/fv_reduction
+    chown system system /sys/class/oem-battery/schedule_chg
+    chown system system /sys/class/qcom-battery/otg_enable
+    chmod 0664 /sys/class/oem-battery/full_charge_setting
+    chmod 0664 /sys/class/oem-battery/cycle_count
+    chmod 0664 /sys/class/oem-battery/cycle_clear
+    chmod 0664 /sys/class/oem-battery/fv_reduction
+    chmod 0664 /sys/class/oem-battery/schedule_chg
+    chmod 0664 /sys/class/qcom-battery/otg_enable
+
+    wait proc/goodix_ts.0/glove_type
+    chown system system proc/goodix_ts.0/glove_type
+    chown system system proc/goodix_ts.0/auto_test
+
+on property:vendor.display.lcd_density=560
+   setprop dalvik.vm.heapgrowthlimit 256m
+
+on property:vendor.display.lcd_density=640
+   setprop dalvik.vm.heapgrowthlimit 512m
+
+on init && property:ro.boot.mode=charger
+    wait_for_prop vendor.all.modules.ready 1
+    mount_all /vendor/etc/charger_fw_fstab.qti --early
+    wait /sys/kernel/boot_adsp/boot
+    write /sys/kernel/boot_adsp/boot 1
+
+on charger
+    start vendor.power_off_alarm
+    setprop sys.usb.controller a600000.dwc3
+    wait /sys/class/udc/${sys.usb.controller}
+    setprop sys.usb.configfs 1
+    mkdir /mnt/vendor/persist 0644 system system
+    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw wait
+
+#    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+#    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
+    mkdir /mnt/vendor/persist_oem 0771 root system
+    wait /dev/block/bootdevice/by-name/persist_oem
+    mount ext4 /dev/block/bootdevice/by-name/persist_oem /mnt/vendor/persist_oem noatime nosuid nodev barrier=1,discard
+    restorecon_recursive /mnt/vendor/persist_oem
+
+    mkdir /mnt/makerlog 0775 root system
+    wait /dev/block/bootdevice/by-name/makerlog
+    mount ext4 /dev/block/bootdevice/by-name/makerlog /mnt/makerlog noatime nosuid nodev barrier=1,discard
+
+    chown root system /mnt/makerlog
+    chmod 0771 /mnt/makerlog
+    mkdir /mnt/makerlog/Logs 0775 root system
+
+    chown root system /mnt/vendor/persist_oem
+    chmod 0771 /mnt/vendor/persist_oem
+
+#service vendor.lowi /vendor/bin/sscrpcd
+#   class core
+#   user system
+#   group system wakelock
+#   capabilities BLOCK_SUSPEND
+
+service hq-fsg /vendor/bin/init.hq.fsg.sh
+    user root
+    group root
+    disabled
+    oneshot
+
+service hq-checkfuse /vendor/bin/init.hq.checkfuse.sh
+    user root
+    group root
+    disabled
+    oneshot
+
+#pd-mapper
+service vendor.pd_mapper /vendor/bin/pd-mapper
+    class core
+    user system
+    group system
+
+#Peripheral manager
+service vendor.per_mgr /vendor/bin/pm-service
+    class core
+    user system
+    group system
+    ioprio rt 4
+
+service vendor.per_proxy /vendor/bin/pm-proxy
+    class core
+    user system
+    group system
+    disabled
+
+#service vendor.mdm_helper /vendor/bin/mdm_helper
+#    class core
+#    group system wakelock
+#    disabled
+
+service vendor.mdm_launcher /vendor/bin/sh /vendor/bin/init.mdm.sh
+    class core
+    oneshot
+
+on property:persist.sys.battery.full.capacity=*
+    write /mnt/vendor/persist/qcom-battery/charge_full_capacity ${persist.sys.battery.full.capacity}
+    write /sys/class/oem-battery/full_charge_setting ${persist.sys.battery.full.capacity}
+
+on property:init.svc.vendor.per_mgr=running
+    start vendor.per_proxy
+
+on property:sys.shutdown.requested=*
+    write /sys/kernel/qcom_rproc/shutdown_in_progress 1
+    stop vendor.per_proxy
+
+on property:vold.decrypt=trigger_restart_framework
+   start vendor.cnss_diag
+
+service vendor.cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
+   class main
+   user system
+   group system wifi inet sdcard_rw media_rw diag
+   oneshot
+
+on early-boot && property:persist.vendor.pcie.boot_option=*
+    write /sys/bus/platform/devices/1c00000.qcom,pcie/debug/boot_option ${persist.vendor.pcie.boot_option}
+    write /sys/bus/platform/devices/1c08000.qcom,pcie/debug/boot_option ${persist.vendor.pcie.boot_option}
+
+on property:vendor.post_boot.parsed=1
+    enable vendor.qvirtmgr
+    start  vendor.qvirtmgr
+
+on property:sys.boot_completed=1 && property:sys.init.userspace_reboot.in_progress=1
+    setprop sys.init.userspace_reboot.in_progress ""
+    chown system system /mnt/vendor/persist/ppg/Gray_Green.txt
+    chown system system /mnt/vendor/persist/ppg/Gray_Ir.txt
+    chown system system /mnt/vendor/persist/ppg/Noise_Green.txt
+    chmod 0664 /mnt/vendor/persist/ppg/Gray_Green.txt
+    chmod 0664 /mnt/vendor/persist/ppg/Gray_Ir.txt
+    chmod 0664 /mnt/vendor/persist/ppg/Noise_Green.txt
+    chown system system sys/class/oem-battery/full_charge_setting
+    chmod 0664 sys/class/oem-battery/full_charge_setting
+
+service wifisar /vendor/bin/wifisar.sh
+   class main
+   user root
+   group root shell everybody
+   #disable
+   oneshot
+   #seclabel u:r:wifisar:s0
+
+on property:persist.vendor.wifi.sar=*
+ start wifisar

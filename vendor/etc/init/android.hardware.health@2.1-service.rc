@@ -1,0 +1,21 @@
+service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
+    class hal charger
+    user system
+    group system
+    capabilities WAKE_ALARM BLOCK_SUSPEND
+    file /dev/kmsg w
+
+# adsp charger use "sysfs qcom-battery/lcd_status" to get lcd status 
+on property:sys.boot_completed=1
+    chown system system sys/class/qcom-battery/lcd_status
+	write /sys/class/qcom-battery/lcd_status 1
+
+# write screen on or off status
+on property:sys.screen.status=on
+  write /sys/class/qcom-battery/lcd_status 1
+on property:sys.screen.status=off
+  write /sys/class/qcom-battery/lcd_status 0
+  
+# adsp AoD use "proc goodix_ts.0/aod_status" to get aod status
+on property:sys.boot_completed=1
+  chown system system sys/devices/platform/goodix_ts.0/aod_info

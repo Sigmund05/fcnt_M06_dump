@@ -1,0 +1,53 @@
+user=infrared domain=platform_app type=app_data_file levelFrom=user
+user=fclk seinfo=platform name=com.fujitsu.mobile_phone.Felica.LockSettings domain=np_fj_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.nttdocomo.android.ictrw domain=np_fj_app levelFrom=user
+user=_app seinfo=platform name=com.realvnc.mirrorlinksample domain=np_fj_app levelFrom=user
+user=radio seinfo=platform name=com.android.server.telecom domain=np_fj_app levelFrom=user
+user=camera_app seinfo=platform name=com.fujitsu.mobile_phone.camera domain=platform_app type=app_data_file
+user=_app seinfo=platform name=com.fujitsu.mobile_phone.display domain=platform_app type=app_data_file
+user=system seinfo=platform name=com.fujitsu.mobile_phone.fjdrm domain=np_fj_app
+user=system seinfo=platform name=com.fujitsu.mobile_phone.hceview_manager domain=np_fj_app
+user=system seinfo=platform name=com.fujitsu.mobile_phone.log.aac domain=np_fj_app
+user=system seinfo=platform name=com.fujitsu.mobile_phone.privacymodesettings domain=np_fj_app
+user=system seinfo=platform name=com.fujitsu.mobile_phone.MusicPicker domain=np_fj_app
+user=system seinfo=platform name=com.quicinc.wbcserviceapp domain=bluetooth
+user=_app seinfo=releasekey name=com.android.gallery3d domain=platform_app type=app_data_file
+user=_app seinfo=releasekey name=com.android.mms domain=np_fj_app levelFrom=user
+user=_app seinfo=releasekey name=com.android.deskclock domain=np_fj_app levelFrom=user
+user=_app seinfo=platform name=com.fujitsu.mobile_phone.MusicPicker domain=np_fj_app levelFrom=user
+user=system seinfo=platform name=com.fujitsu.mobile_phone.FingerprintUnlock.service domain=np_fj_app
+user=system seinfo=platform name=jp.co.toshiba.transferjetutility_sdio domain=np_fj_app
+user=system seinfo=platform name=com.fujitsu.mobile_phone.aoss domain=np_fj_app
+user=mmp seinfo=platform name=com.fujitsu.mobile_phone.mmp domain=np_fcnt_app type=app_data_file
+user=mmp seinfo=platform name=com.fujitsu.mobile_phone.album domain=platform_app type=app_data_file
+user=_app seinfo=platform name=com.android.systemui* domain=platform_app type=app_data_file
+user=smartcard seinfo=platform domain=smartcard type=app_data_file
+user=_app seinfo=platform name=com.fujitsu.mobile_phone.legiblefont domain=np_fcnt_app type=app_data_file
+user=fcmenu seinfo=platform name=com.fujitsu.mobile_phone.Felica.Menu domain=platform_app type=app_data_file levelFrom=user
+user=fclk seinfo=platform name=com.fujitsu.mobile_phone.SocketNfcService domain=platform_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.nttdocomo.android.felicaremotelock domain=platform_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.fcnt.mobile_phone.felica.lock domain=platform_app type=app_data_file levelFrom=user
+user=container seinfo=platform name=com.android.defcontainer domain=platform_app type=app_data_file levelFrom=user
+user=mfm domain=untrusted_app type=app_data_file levelFrom=user
+user=felc domain=untrusted_app type=app_data_file levelFrom=user
+user=fota seinfo=platform name=com.nttdocomo.android.osv domain=platform_app type=app_data_file levelFrom=user
+user=system seinfo=platform name=com.fujitsu.fota.testupdate domain=platform_app type=app_data_file levelFrom=user
+user=fota seinfo=platform name=com.fujitsu.FotaTestTool.tool domain=platform_app type=app_data_file levelFrom=user
+user=fota seinfo=platform name=com.fujitsu.mobile_phone.versionup domain=platform_app type=app_data_file levelFrom=user
+user=fota seinfo=platform name=com.fujitsu.FotaTestToolForDmSimulator.tool domain=platform_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.caf.fmradio domain=np_fm_app type=app_data_file levelFrom=user
+user=_app seinfo=radiko name=com.caf.fmradio3 domain=np_fm_app type=app_data_file levelFrom=user
+user=_app seinfo=radiko name=jp.radiko.radio.player domain=np_fm_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=.fcntsarservice domain=fcntsarservices_app type=app_data_file
+user=_app seinfo=platform name=com.fcnt.mobile_phone.collectdevicelog domain=platform_app type=app_data_file
+user=system seinfo=platform name=com.fujitsu.fjsectools domain=np_fj_app type=app_data_file levelFrom=user
+user=_app seinfo=tango name=com.google.tango:app domain=untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.qualcomm.timeservice domain=vendor_timeservice_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=.qtidataservices domain=vendor_qtidataservices_app type=app_data_file levelFrom=all
+user=radio seinfo=platform name=.imshelperservice domain=vendor_imshelper_app type=radio_data_file
+user=_app seinfo=platform name=com.qualcomm.qti.poweroffalarm domain=vendor_poweroffalarm_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qualcomm.qti.qms.service.trustzoneaccess domain=vendor_tzas_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qti.ltebc domain=vendor_embmssl_app type=app_data_file levelFrom=all
+user=_app seinfo=ssgapp domain=vendor_ssg_app name=com.qualcomm.qti.qms.service.connectionsecurity type=app_data_file levelFrom=all
+user=system seinfo=platform name=com.qualcomm.qti.perfdump domain=vendor_perfdump_app type=system_app_data_file
+user=_app seinfo=platform name=.pasr domain=vendor_powerservice_app type=app_data_file levelFrom=all

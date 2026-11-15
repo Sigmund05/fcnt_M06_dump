@@ -1,0 +1,26 @@
+#---------------------------------------------------------------
+# COPYRIGHT FCNT LIMITED 2022
+#---------------------------------------------------------------
+service qns /vendor/bin/qns -d /mnt/vendor/persist_oem -l /mnt/makerlog/Logs
+    class main
+    user system
+    group system
+    disabled
+
+on post-fs-data
+    start qns
+    chown root system /sys/class/qns/charge_current
+    chown root system /sys/class/qns/charge_voltage
+    chown root system /sys/class/qns/alarm
+    chmod 0220 /sys/class/qns/charge_current
+    chmod 0220 /sys/class/qns/charge_voltage
+    chmod 0660 /sys/class/qns/alarm
+
+on charger
+    start qns
+    chown root system /sys/class/qns/charge_current
+    chown root system /sys/class/qns/charge_voltage
+    chown root system /sys/class/qns/alarm
+    chmod 0220 /sys/class/qns/charge_current
+    chmod 0220 /sys/class/qns/charge_voltage
+    chmod 0660 /sys/class/qns/alarm

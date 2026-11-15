@@ -1,0 +1,77 @@
+service hwdiag /vendor/bin/hwdiag
+    class main
+    user root
+    group root system vendor_qti_diag sdcard_rw cache bluetooth drmrpc
+    seclabel u:r:hwdiag:s0
+
+on property:vendor.hq.temp=1
+    setprop vendor.hq.boot_end ${sys.boot_completed}
+
+service do_factory_reset /system/bin/hqread_sys do_factory_reset
+    class main
+    disabled
+    user root
+    oneshot
+    seclabel u:r:hqread_sys:s0
+
+on property:vendor.hq.do_factory_reset=1
+    start do_factory_reset
+
+service get_sim_state /system/bin/hqread_sys get_sim_state
+    class main
+    disabled
+    user root
+    oneshot
+    seclabel u:r:hqread_sys:s0
+
+on property:vendor.hq.get_sim_state=1
+    start get_sim_state
+
+service do_reboot_edl /system/bin/hqread_sys do_reboot_edl
+    class main
+    disabled
+    user root
+    oneshot
+    seclabel u:r:hqread_sys:s0
+
+on property:vendor.hq.do_reboot_edl=1
+    start do_reboot_edl
+
+on boot
+    chmod 0776 /mnt/vendor/persist/flag
+    chown system system /mnt/vendor/persist/flag/
+    chmod 0664 /mnt/vendor/persist/flag/MMI3.FLG
+    chown system system /mnt/vendor/persist/flag/MMI3.FLG
+
+service enable_airplane /system/bin/settings put global airplane_mode_on 1
+    disabled
+    user root
+    oneshot
+    seclabel u:r:hwdiag:s0
+
+service disable_airplane /system/bin/settings put global airplane_mode_on 0
+    disabled
+    user root
+    oneshot
+    seclabel u:r:hwdiag:s0
+
+on property:vendor.hq.airplane.mode=1
+    start enable_airplane
+
+on property:vendor.hq.airplane.mode=0
+    start disable_airplane
+
+service hqreadsvc /vendor/bin/hqread_vndr atcmd
+    class main
+    user root
+    disabled
+    oneshot
+    group root system
+    seclabel u:r:hqread_vndr:s0
+
+on property:persist.vendor.hqread.trigger=1
+    start hqreadsvc
+
+
+on property:vendor.sys.diag.enable=1
+    setprop sys.usb.config diag,serial_cdev,rmnet,dpl,qdss,adb

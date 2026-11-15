@@ -1,0 +1,10 @@
+service vendor.face-fcnt /vendor/bin/hw/android.hardware.biometrics.face-service.fface
+    class hal
+    user system
+    group system
+
+on property:vendor.fface.error.nocamera=1
+    stop vendor.face-fcnt
+    setprop vendor.fface.error.nocamera 0
+    start vendor.face-fcnt
+
