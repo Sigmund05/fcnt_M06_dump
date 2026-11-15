@@ -1,0 +1,27 @@
+#----------------------------------------------------------------------------
+# (C) 2022 FCNT LIMITED
+#----------------------------------------------------------------------------
+import /system/etc/init/hw/init.rc
+import /system/etc/init
+import /system_ext/etc/init
+import /product/etc/init
+import /odm/etc/init
+import /vendor/etc/init
+on post-fs-data
+    setprop debug.sf.nobootanimation 1
+service zygote /vendor/bin/echo "dummy"
+    override
+    oneshot
+    disabled
+service zygote_secondary /vendor/bin/echo "dummy"
+    override
+    oneshot
+    disabled
+service odm.fcnt-repairmode-sh /odm/bin/init.fcnt.repairmode.sh
+    class main
+    user root
+    oneshot
+on property:vendor.shipmode.disable=1
+    write /sys/module/qpnp_power_on/parameters/ship_mode_en 0
+on property:vendor.shipmode.disable=0
+    write /sys/module/qpnp_power_on/parameters/ship_mode_en 1

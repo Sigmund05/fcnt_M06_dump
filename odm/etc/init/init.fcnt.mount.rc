@@ -1,0 +1,43 @@
+#----------------------------------------------------------------------------
+# (C) 2023 FCNT LIMITED
+#----------------------------------------------------------------------------
+on charger
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
+    mkdir /mnt/makerlog 0775 root system
+    wait /dev/block/bootdevice/by-name/makerlog
+    mount ext4 /dev/block/bootdevice/by-name/makerlog /mnt/makerlog noatime nosuid nodev barrier=1,discard
+
+    chown root system /mnt/makerlog
+    chmod 0771 /mnt/makerlog
+    mkdir /mnt/makerlog/Logs 0775 root system
+
+on post-fs-data
+    mkdir /mnt/makerlog 0775 root system
+    wait /dev/block/bootdevice/by-name/makerlog
+    mount ext4 /dev/block/bootdevice/by-name/makerlog /mnt/makerlog noatime nosuid nodev barrier=1,discard
+
+    mkdir /mnt/persist2 0771 system system
+    wait /dev/block/bootdevice/by-name/makerlog2
+    mount ext4 /dev/block/bootdevice/by-name/makerlog2 /mnt/persist2 noatime nosuid nodev barrier=1,discard
+
+    chown root system /mnt/makerlog
+    chmod 0771 /mnt/makerlog
+    restorecon -R /mnt/makerlog
+    mkdir /mnt/makerlog/Logs 0775 root system
+
+    chown system system /mnt/persist2
+    chmod 0771 /mnt/persist2
+    restorecon -R /mnt/persist2
+    mkdir /mnt/persist2/Logs 0775 root system
+
+# FCNT:2020-09-03 FOTA GOTA ADD-S
+    mkdir /mnt/persist2/fota 0777 system system
+    chown system system /mnt/persist2/fota
+    chmod 0777 /mnt/persist2/fota
+# FCNT:2020-09-03 FOTA GOTA ADD-E
+
+# FCNT:2020-08-05 REQSYS-BT-01906-SSR-FOR-QCA6174 MOD-S
+    mkdir /mnt/makerlog/Logs/ramdump 0771 root system
+# FCNT:2020-08-05 REQSYS-BT-01906-SSR-FOR-QCA6174 MOD-E
