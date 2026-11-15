@@ -1,0 +1,35 @@
+service fjdumpstateA /system/bin/fjdumpstate -A -s
+    class main
+    socket fjdumpstateA stream 0666 system
+    disabled
+    oneshot
+
+service fjdumpstateE /system/bin/fjdumpstate -E -s
+    class main
+    socket fjdumpstateE stream 0666 root system
+    disabled
+    oneshot
+
+service fjdumpstateS /system/bin/fjdumpstate -S -s
+    class main
+    socket fjdumpstateS stream 0666 root system
+    disabled
+    oneshot
+
+service fjdumpstateL /system/bin/fjdumpstate -L -s
+    class main
+    socket fjdumpstateL stream 0666 root system
+    disabled
+    oneshot
+
+service fjdumpstateR /system/bin/fjdumpstate -R -s
+    class main
+    socket fjdumpstateR stream 0666 root system
+    disabled
+    oneshot
+
+service fjdumpstate /system/bin/fjdumpstate -s
+    class main
+    socket fjdumpstate stream 0666 root system
+    disabled
+    oneshot

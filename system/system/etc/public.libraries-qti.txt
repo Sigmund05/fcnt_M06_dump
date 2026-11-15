@@ -1,0 +1,3 @@
+libbinauralrenderer_wrapper.qti.so
+libhoaeffects.qti.so
+libqcomfm_jni.qti.so

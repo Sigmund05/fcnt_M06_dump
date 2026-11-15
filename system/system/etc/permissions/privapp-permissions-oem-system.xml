@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- COPYRIGHT(C) FCNT 2019 -->
+
+<!--
+This XML file declares which signature|privileged permissions should be granted to privileged
+applications that come with the platform
+-->
+
+<permissions>
+   <!--FCNT:2022-07-21_POLLUX-OSVS-SYSTEM-23_ADD-S-->
+   <privapp-permissions package="com.fujitsu.mobile_phone.fjserver">
+       <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+       <!--FCNT:2024-09-24_ATAMI-SB-OSVU-MAINTE-9_ADD-S-->
+       <permission name="android.permission.WRITE_SECURE_SETTINGS" />
+       <!--FCNT:2024-09-24_ATAMI-SB-OSVU-MAINTE-9_ADD-E-->
+   </privapp-permissions>
+   <!--FCNT:2022-07-21_POLLUX-OSVS-SYSTEM-23_ADD-E-->
+
+</permissions>

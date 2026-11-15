@@ -1,0 +1,5 @@
+service initial_log /system/bin/initial_log
+    class main
+    user root
+    group system
+    oneshot

@@ -1,0 +1,2 @@
+;伝言メモが動作するProduct種別[SP(0) [default] / MVNO(1) / Rakuraku(2)]
+VOICEMEMO_PRODUCT=0

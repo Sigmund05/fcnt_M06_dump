@@ -1,0 +1,2 @@
+;通話メモが動作するProduct種別[SP(0) / MVNO(1) [default] / Rakuraku(2)]
+CALLMEMO_PRODUCT=1

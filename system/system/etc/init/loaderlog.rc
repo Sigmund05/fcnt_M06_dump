@@ -1,0 +1,14 @@
+on post-fs-data
+    start loaderlog
+    setprop ro.odm.startup.ramdump 1
+
+on property:ro.odm.startup.ramdump=1
+    start fta_ramdump
+
+service loaderlog /system/bin/loaderlog.sh
+    user root
+    oneshot
+
+service fta_ramdump /system/bin/ramdump.sh
+    user root
+    oneshot

@@ -1,0 +1,11 @@
+service bootanim /system/bin/bootanimation
+    class core animation
+    user graphics
+#FCNT:2017-01-16 Secondary bootanim GOLF-OSVN-PARTS-368 MOD-S
+#    group graphics audio
+    group graphics audio system
+#FCNT:2017-01-16 Secondary bootanim GOLF-OSVN-PARTS-368 MOD-E
+    disabled
+    oneshot
+    ioprio rt 0
+    task_profiles MaxPerformance

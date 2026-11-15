@@ -1,0 +1,37 @@
+service fjlogtoold /system/bin/fjlogtool.sh
+    class late_start
+    user system
+    group system
+    oom_score_adjust -600
+
+service fjlogtool_store /system/bin/fjlogtool -F -d
+    class late_start
+    user system
+    group system
+    disabled
+    oneshot
+    oom_score_adjust -600
+
+service fjlogtool_3point_first /system/bin/fjlogtool -F -P -f
+    class late_start
+    user root
+    group system
+    disabled
+    oneshot
+    oom_score_adjust -600
+
+service fjlogtool_3point_last_n /system/bin/fjlogtool -F -P -l
+    class late_start
+    user system
+    group system
+    disabled
+    oneshot
+    oom_score_adjust -600
+
+service fjlogtool_3point_last_a /system/bin/fjlogtool -F -P -l -a
+    class late_start
+    user system
+    group system
+    disabled
+    oneshot
+    oom_score_adjust -600

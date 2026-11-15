@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <library name="com.fujitsu.mobile_phone.fjlog"
+            file="/system/framework/com.fujitsu.mobile_phone.fjlog.jar" />
+</permissions>
