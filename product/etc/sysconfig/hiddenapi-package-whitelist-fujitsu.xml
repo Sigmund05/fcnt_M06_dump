@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is used to define the app which want to call hide api.
+     Be VERY careful when editing this file!  Mistakes made here can open
+     big security holes.
+-->
+<!--
+/*============================================================================*/
+// COPYRIGHT(C) FCNT 2019
+/*============================================================================*/
+-->
+<config>
+    <hidden-api-whitelisted-app package="com.motorola.ccc.devicemanagement" />
+<!-- FCNT LLC:2020-02-27 REQSYS-FM-01741-HYBRID-RADIO ADD start -->
+    <hidden-api-whitelisted-app package="jp.radiko.radio.player" />
+<!-- FCNT LLC:2020-02-27 REQSYS-FM-01741-HYBRID-RADIO ADD end -->
+</config>

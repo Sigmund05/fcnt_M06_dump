@@ -1,0 +1,28 @@
+#----------------------------------------------------------------------------
+# (C) 2022 FCNT LIMITED
+#----------------------------------------------------------------------------
+# init.fcnt.product.rc
+
+on post-fs-data
+# FCNT:2018-12-5_redmine_59436_ADD-S
+    mkdir /data/master 0775 root shell
+    chown root shell /data/master
+    chmod 0775 /data/master
+# FCNT:2018-12-5_redmine_59436_ADD-E
+
+# FCNT:2022-4-8_TOSA-OSVS-PARTS-136_ADD-S
+    mkdir /data/fjlog 0711 system system
+    mkdir /data/fjlog/tombstones 0711 system system
+# FCNT:2022-4-8_TOSA-OSVS-PARTS-136_ADD-E
+
+on boot
+service preinrestore /product/bin/init_preinrestore.sh
+    class late_start
+    user root
+    group root
+    oneshot
+service preinrestoreOSV /product/bin/init_preinrestoreOSV.sh
+    class late_start
+    user root
+    group root
+    oneshot

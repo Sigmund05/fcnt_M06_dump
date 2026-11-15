@@ -1,0 +1,28 @@
+#----------------------------------------------------------------------------
+# (C) 2023 FCNT LIMITED
+#----------------------------------------------------------------------------
+on charger
+    mkdir /mnt/logfs 0775 root system
+    wait /dev/block/bootdevice/by-name/logfs
+    mount vfat /dev/block/bootdevice/by-name/logfs /mnt/logfs ro noatime nosuid nodev
+    chown root system /mnt/logfs
+    chmod 0771 /mnt/logfs
+
+    start product.bootlog
+
+on post-fs-data
+    mkdir /mnt/logfs 0775 root system
+    wait /dev/block/bootdevice/by-name/logfs
+    mount vfat /dev/block/bootdevice/by-name/logfs /mnt/logfs ro noatime nosuid nodev
+    chown root system /mnt/logfs
+    chmod 0771 /mnt/logfs
+
+    start product.bootlog
+
+service product.bootlog /product/bin/init.fcnt.bootlog.sh
+    user root
+    oneshot
+
+on property:vendor.bootlog.saved=1
+    umount /mnt/logfs
+    rmdir /mnt/logfs

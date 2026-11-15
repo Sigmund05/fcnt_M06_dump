@@ -1,0 +1,18 @@
+#---------------------------------------
+# (C) 2023 FCNT LIMITED
+#---------------------------------------
+
+service product.offchargelog /product/bin/init.fcnt.offchargelog.sh
+    class charger
+    group system
+
+service product.offchargelog.close /product/bin/init.fcnt.offchargelog.sh
+    class charger
+    group system
+    disabled
+    oneshot
+
+on property:vendor.offchargelog.close=true
+    stop product.offchargelog
+    start product.offchargelog.close
+

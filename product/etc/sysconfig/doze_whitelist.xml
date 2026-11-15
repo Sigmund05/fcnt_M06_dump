@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is used to define the mappings between lower-level system
+     user and group IDs and the higher-level permission names managed
+     by the platform.
+
+     Be VERY careful when editing this file!  Mistakes made here can open
+     big security holes.
+-->
+<!--
+/*============================================================================*/
+// COPYRIGHT(C) FCNT 2021
+/*============================================================================*/
+ */
+-->
+<permissions>
+<!--- FUJITSU:2015-11-19-16-1ST-DOZEMODE_ADD-S -->
+    <!-- NXMailアプリ -->
+    <allow-in-power-save-except-idle package="com.fujitsu.mobile_phone.fjnxmail" />
+<!--- FUJITSU:2015-11-19-16-1ST-DOZEMODE_ADD-S -->
+
+<!-- FCNT LIMITED:2020-01-10 TOSA_Contacts ADD-S -->
+    <!-- かんたんお引越し 電話帳プラグイン -->
+    <allow-in-power-save package="com.fujitsu.mobile_phone.phonebookeasymovingservice" />
+<!-- FCNT LIMITED:2020-01-10 TOSA_Contacts ADD-E -->
+
+<!-- FCNT: 2020-10-21_01499_DozeMode_Effective ADD-S -->
+    <allow-in-power-save package="com.fujitsu.mobile_phone.atfsite" />
+<!-- FCNT: 2020-10-21_01499_DozeMode_Effective ADD-E -->
+    <allow-in-power-save package="com.android.managedprovisioning" />  <!-- FCNT LIMITED:2020-08-25_TOSA-MAINTE-210 ADD -->
+
+<!--- FCNT:2020-07-23 ZEUS FastMemo ADD-S -->
+    <!-- FASTメモ -->
+    <allow-in-power-save package="com.fcnt.mobile_phone.fastmemo" />
+<!--- FCNT:2020-07-23 ZEUS FastMemo ADD-E -->
+
+<!--- FCNT:2020-08-17 felica/nfc ZEUS-SYSTEM-534 ADD-S -->
+    <!-- モバイルFeliCa ミドルウェア -->
+    <allow-in-power-save package="com.felicanetworks.mfc" />
+    <allow-in-power-save package="com.felicanetworks.mfs" />
+    <allow-in-power-save package="com.felicanetworks.mfm.main" />
+    <allow-in-power-save package="com.felicanetworks.mfw.a.boot" />
+<!--- FCNT:2020-08-17 felica/nfc ZEUS-SYSTEM-534 ADD-E -->
+
+<!-- FCNT:2021-06-30_CarrierApps ADD-S -->
+    <!-- Facebook Services -->
+    <allow-in-power-save package="com.facebook.services" />
+<!-- FCNT:2021-06-30_CarrierApps ADD-E -->
+
+<!-- FCNT:2022-11-08 Redmine:137597 ADD-S -->
+    <allow-in-power-save package="com.fcnt.mobile_phone.privacymodesettings" />
+<!-- FCNT:2022-11-08 Redmine:137597 ADD-E -->
+
+<!--- FCNT:2017-12-13_172-FUTSAL-OSVO-AAC_LOG-ADD-S -->
+    <allow-in-power-save package="com.fujitsu.mobile_phone.log.aac" />
+<!--- FCNT:2017-12-13_172-FUTSAL-OSVO-AAC_LOG-ADD-E -->
+<!--- FCNT:2020-01-22_HEALTHCARE-ADD-S -->
+    <!-- ララしあコネクト -->
+    <allow-in-power-save package="com.fujitsu.mobile_phone.healthcare" />
+<!--- FCNT:2020-01-22_HEALTHCARE-ADD-E -->
+
+<!-- FCNT:2022-11-02 ATAMI SlideInLauncher ADD-S -->
+    <allow-in-power-save package="com.fujitsu.mobile_phone.slideinlauncher" />
+<!-- FCNT:2022-11-02 ATAMI SlideInLauncher ADD-E -->
+
+<!--- FCNT:2021-01-18 BOXER FAST Pay ADD-S -->
+    <!-- FAST Pay -->
+    <allow-in-power-save package="com.fcnt.mobile_phone.arrowswallet" />
+<!--- FCNT:2021-01-18 BOXER FAST Pay ADD-E -->
+<!--- FCNT:2021-07-09 GMS ADD-S -->
+    <!-- 緊急速報メール -->
+    <allow-in-power-save package="com.google.android.cellbroadcastreceiver" />
+<!--- FCNT:2021-07-09 GMS ADD-E -->
+
+<!-- FCNT:2022-08-22 privacymodeservice ADD-S -->
+    <allow-in-power-save package="com.fcnt.mobile_phone.privacymodeservice" />
+<!-- FCNT:2022-08-22 privacymodeservice ADD-E -->
+
+<!-- FCNT:2022-08-22 AppPinning ADD-S -->
+    <!-- AppPinning -->
+    <allow-in-power-save package="com.fcnt.mobile_phone.apppinning" />
+<!-- FCNT:2022-08-22 AppPinning ADD-E -->
+
+<!--- FCNT:2021-08-21 FntAppDownloader ADD-S -->
+    <!-- FntAppDownloader -->
+    <allow-in-power-save package="com.fcnt.mobile_phone.FcntAppDownloader" />
+<!--- FCNT:2021-08-21 FntAppDownloader ADD-E -->
+
+<!-- FCNT LLC:2021-03-19 REQSYS-WLAN-01139-LOG-ON-OFF BOXER-SYSTEM-1000 ADD-S -->
+    <allow-in-power-save package="com.fcnt.mobile_phone.wifiservice" />
+<!-- FCNT LLC:2021-03-19 REQSYS-WLAN-01139-LOG-ON-OFF BOXER-SYSTEM-1000 ADD-E -->
+
+<!-- FCNT: 2021-09-02_La Member's ADD-S -->
+    <allow-in-power-save package="com.fcnt.mobile_phone.lamembers" />
+<!-- FCNT: 2021-09-02_La Member's ADD-E -->
+<!-- FCNT: 2024-12-24_ScreenMemo ADD-S -->
+    <allow-in-power-save package="com.fujitsu.mobile_phone.screenmemo" />
+<!-- FCNT: 2024-12-24_ScreenMemo ADD-E -->
+
+    <allow-in-power-save package="com.motorola.ccc.devicemanagement" />
+    <allow-in-data-usage-save package="com.motorola.ccc.devicemanagement" />
+    <allow-in-power-save package="com.motorola.ccc.mainplm" />
+</permissions>
